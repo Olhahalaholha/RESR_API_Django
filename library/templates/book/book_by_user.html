@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% block meta_title %}Books by user{% endblock %}
+{% block title %}Books by user{% endblock %}
+{% block content %}
+    <div>
+        <form action="" method="POST">
+            <div class="input-group mb-3">
+                {% csrf_token %}
+                {% for field in search_form %}
+                    {{ field }}
+                {% endfor %}
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Button</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% if search_form.errors %}
+        {% for field_name, errors in search_form.errors.items %}
+            {% for error in errors %}
+                <div class=" text-center"><small class="text-danger">{{ error }}</small></div>
+            {% endfor %}
+
+        {% endfor %}
+    {% endif %}
+
+    {% if search_query and not query_error %}<h4 class="text-center">Search results for user with id: {{ search_query }}</h4>{% endif %}
+    <div class="row">
+        {% for order in orders %}
+            <div class=" p-4 col-xl-4 col-lg-6 col-12">
+             <div class="border {% if order.end_at is None %}border-warning{% endif %}">
+                 <div>
+                     <img src="https://cdn.shopify.com/s/files/1/0024/6874/1219/products/WitcherAndrzejSapkowski8Books-Banded-B2D2634-front3-jpg_compressed_ba150cfc-6299-43a5-8a4a-d323feabd5d3_700x700.jpg?v=1658580009" class="mw-100">
+                 </div>
+                 <div class="p-2 border-bottom">
+                     <h4 class="m-0">{{ order.book.name }}</h4>
+                 </div>
+                 <div class="p-2 text-secondary">
+                     <small><b>Book id: </b>{{ order.book.id }}</small>
+                 </div>
+                 <div class="p-2 text-secondary">
+                     <small><b>Created at: </b>{{ order.created_at }}</small>
+                 </div>
+                 <div class="p-2 text-secondary">
+                     <small><b>End at: </b>{{ order.end_at }}</small>
+                 </div>
+                 <div class="p-2 text-secondary">
+                     <small><b>Plated end at: </b>{{ order.plated_end_at }}</small>
+                 </div>
+
+
+             </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

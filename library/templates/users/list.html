@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+
+{% block meta_title %}All Users{% endblock meta_title %}
+
+{% block title %}All Users{% endblock title %}
+
+{% block content %}
+<main class="my-3">
+    {% for user_obj in users %}
+    <div class="row my-3">
+        <div class="d-flex justify-content-between">
+            <h2>
+                <a href="{{user_obj.get_absolute_url}}">{{user_obj.email}}</a> {% if user == user_obj %}<span class="text-muted">(You)</span>{% endif %}
+            </h2>
+            <h3 class="text-muted fw-bold">{{user_obj.get_role_display|capfirst}}</h3>
+        </div>
+        <div class="my-3">
+            <h4>Total orders: {{user_obj.order_set.all.count}}</h4>
+        </div>
+    </div><hr>
+    {% endfor %}
+</main>
+{% endblock content %}

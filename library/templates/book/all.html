@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% block meta_title %}Books{% endblock %}
+{% block title %}Books{% endblock %}
+{% block content %}
+    <div>
+        <form action="" method="GET" class="row">
+            <div class="col-xl-4 col-lg-6 col-12">
+                <select class="form-select "
+                        id="filterAuthor" name="author" onchange="this.form.submit()">
+                    <option selected>All authors</option>
+                    {% for author in authors %}
+                        <option value="{{ author.id }}"
+                                {% if author.id == filter_data.author %}selected{% endif %}>{{ author.name|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-12">
+                <select class="form-select "
+                        id="filterTitle" name="book" onchange="this.form.submit()">
+                    <option selected>All books</option>
+                    {% for book in books %}
+                        <option value="{{ book.id }}"
+                                {% if book.id == filter_data.book %}selected{% endif %}>{{ book.name|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        {% for book in books %}
+            <div class=" p-4 col-xl-4 col-lg-6 col-12">
+             <div class="border">
+                 <div>
+                     <img src="https://cdn.shopify.com/s/files/1/0024/6874/1219/products/WitcherAndrzejSapkowski8Books-Banded-B2D2634-front3-jpg_compressed_ba150cfc-6299-43a5-8a4a-d323feabd5d3_700x700.jpg?v=1658580009" class="mw-100">
+                 </div>
+                 <div class="p-2 border-bottom">
+                     <h4 class="m-0">{{ book.name }}</h4>
+                 </div>
+                 <div class="p-2 text-secondary">
+                     <small>{{ book.description }}</small>
+                 </div>
+                 <div class="p-2 text-end" >
+                     <a href="{% url 'book:detail' book.id %}" class="inline link-primary">Detail</a>
+                 </div>
+
+             </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

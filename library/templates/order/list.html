@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block extra_css %}
+<style>
+.badge:hover{
+    color: white;
+}
+</style>
+{% endblock extra_css %}
+
+{% block meta_title %}Orders{% endblock meta_title %}
+
+{% block title %}Revisit {% if user.role == 0 %}your{% elif user.role == 1 %}all{% endif %} orders!{% endblock title %}
+
+{% block content %}
+    <main class="my-3">
+        {% include 'order/snippets/order_table.html' with orders=orders user=user %}
+    </main>
+{% endblock content %}

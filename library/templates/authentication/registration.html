@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% block meta_title %}Registration{% endblock %}
+{% block title %}Registration{% endblock %}
+{% block content %}
+    <form class="p-4 block mw-100 m-auto"  style="width: 300px;" method="POST" action="">
+    {% csrf_token %}
+        {% for field in registration_form %}
+            <div class="mb-3">
+            <label for="{{ field.name }}" class="form-label">{{ field.label}}
+                {% if field.field.required %}*{% endif %}
+            </label>
+            {{ field }}
+            {% if field.help_text %}
+                <small>{{ field.help_text  }}</small>
+            {% endif %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div>
+                            <small class="text-danger">
+                                {{ error }}
+                            </small>
+                        </div>
+                    {% endfor %}
+                {% endif%}
+            </div>
+        {% endfor %}
+         {% if registration_form.non_field_errors %}
+            {% for error in registration_form.non_field_errors %}
+                <div>
+                    <small class="text-danger">
+                        {{ error }}
+                    </small>
+                </div>
+            {% endfor %}
+         {% endif%}
+
+
+       <div class="text-center d-grid gap-2 pt-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+{% endblock %}

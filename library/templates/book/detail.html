@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block meta_title %}{{ book.name }}{% endblock %}
+{% block title %}{{ book.name }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-xl-6 p-2">
+            <img src="https://cdn.shopify.com/s/files/1/0024/6874/1219/products/WitcherAndrzejSapkowski8Books-Banded-B2D2634-front3-jpg_compressed_ba150cfc-6299-43a5-8a4a-d323feabd5d3_700x700.jpg?v=1658580009" class="mw-100">
+        </div>
+        <div class="col-xl-6 p-2">
+            <p><b>Author:</b> {% for author in book.authors.all %}{{ author.name }}{% endfor %}</p>
+            <p><b>Description</b> {{ book.description }}</p>
+        </div>
+    </div>
+
+{% endblock %}

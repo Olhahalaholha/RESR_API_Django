@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% block meta_title %}Login page{% endblock %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <form class="p-4 block mw-100 m-auto"  style="width: 300px;" method="POST" action="">
+    {% csrf_token %}
+        {% for field in login_form %}
+            <div class="mb-3">
+            <label for="{{ field.name }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+            </div>
+        {% endfor %}
+     {% if login_form.errors %}
+         {% for _, errors in login_form.errors.items %}
+            <div>
+                <small class="text-danger">
+                    {% for error in errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            </div>
+         {% endfor %}
+        {% endif%}
+
+        <div class="text-center d-grid gap-2 pt-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+{% endblock %}

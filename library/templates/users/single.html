@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+{% url 'users:single' pk=user.pk as user_detail %}
+
+{% block meta_title %}{{user.email}} | Profile{% endblock meta_title %}
+
+{% block title %}View User's Profile{% endblock title %}
+
+{% block content %}
+<main class="my-3">
+    <div class="container-fluid py-5">
+        <div class="d-flex justify-content-between">
+            <h1 class="display-5 fw-bold">{{user.email}}</h1>
+            <h3 class="text-muted fw-bold pt-3">{{user.get_role_display|capfirst}}</h3>
+        </div>
+        <p class="col-md-8 fs-4">Been a {{user.get_role_display}} for {{user.created_at|timesince}} already! Always thankful for joining us.</p><hr>
+        <div class="mx-4 mt-3">
+            <h4>User's order activity will be given below.</h4>
+        </div>
+       {% include 'order/snippets/order_table.html' with orders=orders %}
+    </div>
+</main>
+{% endblock content %}

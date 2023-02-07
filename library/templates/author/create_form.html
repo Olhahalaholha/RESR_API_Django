@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block meta_title %}Add author{% endblock meta_title %}
+
+{% block title %}Create a new author{% endblock title %}
+
+{% block content %}
+    <main class="my-3">
+        <form action= '' method="POST" class="form-group">
+            
+            {% csrf_token %}
+
+            <label >Author Name: </label><br>
+            {{ form.name }}<br><br>
+            <label >Author Surname: </label><br>
+            {{ form.surname }}<br><br>
+            <label >Author Patronymic: </label><br>
+            {{ form.patronymic }}<br><br>
+            <label >Author's Books: </label><br>
+            {{ form.books }}<br><br>   
+            <input type="submit" value="Create Author">
+        </form>
+    </main>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block meta_title %}New Order{% endblock meta_title %}
+
+{% block title %}Create a new order{% endblock title %}
+
+{% block content %}
+<main class="my-3">
+    <form method="post" class="form-group">
+        {% csrf_token %}
+          <div class="mb-3">
+            <label >Select a book</label><br>
+            {{ form.book }}<br><br>
+            <label >How long do you want this book for?</label><br>
+            {{ form.time }}<br><br>
+            {% if user.role == 1 %}
+                <label >Select visitors:</label><br>
+                {{ form.user }}
+            {% endif %}
+          </div>
+        <hr class="mb-4">
+        <button type="submit" class="btn btn-secondary btn-lg btn-block">Create order</button>
+      </form>
+</main>
+{% endblock content %}

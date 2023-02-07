@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Library.com</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        {% if request.user.is_authenticated %}
+            {% if request.user.role == 1 %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Books
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'book:all' %}">All books</a></li>
+                        <li><a class="dropdown-item" href="{% url 'book:search' %}">Books by users</a></li>
+                    </ul>
+                </li>
+            {% elif  request.user.role == 0 %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'book:all' %}">Books</a>
+                </li>
+            {% endif %}
+         {% endif %}
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+            Orders
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'orders:all' %}"><i class="fas fa-info"></i> {% if user.role == 0 %}My{% elif user.role == 1 %}All{% endif %} orders</a></li>
+            <li><a class="dropdown-item" href="{% url 'orders:new' %}"><i class="fas fa-plus"></i> New order</a></li>
+          </ul>
+        </li>
+        {% endif %}
+        {% if user.role == 1 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:all' %}"><i class="fas fa-user-circle"></i> All Users</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Authors
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'authors:all' %}">All authors</a></li>
+            <li><a class="dropdown-item" href="{% url 'authors:new' %}">New author</a></li>
+          </ul>
+        </li>
+        {% endif %}
+      </ul>
+    {% if request.user.is_authenticated %}
+      <div class="inline-block">
+          {{ request.user.email }}
+      </div>
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <form method="POST" action="{% url 'authentication:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link btn btn-link">Logout</button>
+                </form>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'authentication:login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'authentication:registration' %}">Registration</a>
+            </li>
+        </ul>
+    {% endif %}
+
+
+
+
+    </div>
+  </div>
+</nav>
