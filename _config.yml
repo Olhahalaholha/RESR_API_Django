@@ -1,3 +1,7 @@
 theme: jekyll-theme-minimal
 title: olhahalaholha's homepage
 description: Bookmark this to keep an eye on my project updates!
+branches:
+  only:
+  - gh-pages
+  - /.*/
